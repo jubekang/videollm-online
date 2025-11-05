@@ -1,5 +1,10 @@
 import os, torchvision, transformers
-torchvision.set_video_backend('video_reader')
+import warnings
+try:
+    torchvision.set_video_backend("video_reader")
+except RuntimeError:
+    warnings.warn("video_reader not available; falling back to 'pyav'")
+    torchvision.set_video_backend("pyav")
 from functools import partial
 import gradio as gr
 
